@@ -16,7 +16,7 @@ public class ProjetoService {
 
     public String postProjeto(Projeto projeto){
         this.projetoRepository.save(projeto);
-        return "Projeto salvo com sucesso";
+        return "Projeto salvo com sucesso.";
     }
 
     public List<Projeto> getProjetos(){
@@ -27,7 +27,7 @@ public class ProjetoService {
         Optional<Projeto> projetoEncontrado = projetoRepository.findById(id);
 
         if (!projetoEncontrado.isPresent()) {
-            throw new RuntimeException("Projeto não encontrado");
+            throw new RuntimeException("Projeto não encontrado.");
         }
 
         return projetoEncontrado.get();
@@ -36,7 +36,7 @@ public class ProjetoService {
     public String deleteById(Long id){
         Projeto projetoADeletar = findById(id);
         projetoRepository.delete(projetoADeletar);
-        return "Projeto deletado com sucesso";
+        return "Projeto deletado com sucesso.";
     }
 
     public String editById(Long id, Projeto projetoAtualizado){
@@ -57,14 +57,19 @@ public class ProjetoService {
 
         projetoRepository.save(projetoExistente);
 
-        return "Projeto atualizado com sucesso";
+        return "Projeto atualizado com sucesso.";
     }
 
     public String cancelarProjeto(Long id){
         Projeto projetoExistente = findById(id);
 
-        projetoExistente.setStatusAtual(StatusProjeto.CANCELADO);
+        if(projetoExistente.getStatusAtual() == StatusProjeto.CANCELADO){
+            throw new RuntimeException("Este projeto já foi cancelado");
+        }
 
-        return "Status do projeto atualizado com sucesso";
+        projetoExistente.setStatusAtual(StatusProjeto.CANCELADO);
+        projetoRepository.save(projetoExistente);
+
+        return "Projeto cancelado com sucesso.";
     }
 }

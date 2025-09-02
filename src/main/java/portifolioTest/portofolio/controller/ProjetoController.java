@@ -70,8 +70,8 @@ public class ProjetoController {
         try {
             String response = this.projetoService.cancelarProjeto(id);
             return new ResponseEntity<String>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>("Erro ao cancelar projeto!", HttpStatus.BAD_REQUEST);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
