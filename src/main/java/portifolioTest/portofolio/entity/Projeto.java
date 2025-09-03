@@ -3,6 +3,8 @@ package portifolioTest.portofolio.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
+import portifolioTest.portofolio.dto.ProjetoDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,6 +44,10 @@ public class Projeto {
     private RiscoProjeto risco;
 
     public Projeto() {}
+
+    public Projeto(ProjetoDTO dto){
+        BeanUtils.copyProperties(dto, this);
+    }
 
     public void calcularRisco() {
         if (dataInicio != null && dataTerminoPrevisto != null && orcamentoTotal != null) {
