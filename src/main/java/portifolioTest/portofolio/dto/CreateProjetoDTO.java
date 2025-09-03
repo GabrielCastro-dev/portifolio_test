@@ -3,7 +3,6 @@ package portifolioTest.portofolio.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
-import portifolioTest.portofolio.entity.RiscoProjeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.entity.Projeto;
 
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ProjetoDTO {
+public class CreateProjetoDTO {
     private Integer id;
     private String nome;
     private LocalDate dataInicio;
@@ -23,13 +22,12 @@ public class ProjetoDTO {
     private BigDecimal orcamentoTotal;
     private String descricao;
     private StatusProjeto statusAtual;
-    private RiscoProjeto risco;
 
-    public ProjetoDTO(Projeto produto){
+    public CreateProjetoDTO(Projeto produto){
         BeanUtils.copyProperties(produto, this);
     }
 
-    public ProjetoDTO(){
+    public CreateProjetoDTO(){
 
     }
 }

@@ -14,9 +14,10 @@ public class ProjetoService {
     @Autowired
     private ProjetoRepository projetoRepository;
 
-    public String postProjeto(Projeto projeto){
-        this.projetoRepository.save(projeto);
-        return "Projeto salvo com sucesso.";
+    public Projeto postProjeto(Projeto projeto){
+        projeto.calcularRisco();
+        Projeto salvo = this.projetoRepository.save(projeto);
+        return salvo;
     }
 
     public List<Projeto> getProjetos(){
@@ -39,7 +40,7 @@ public class ProjetoService {
         return "Projeto deletado com sucesso.";
     }
 
-    public String editById(Long id, Projeto projetoAtualizado){
+    public Projeto editById(Long id, Projeto projetoAtualizado){
         Projeto projetoExistente = findById(id);
 
         // Atualiza os campos
@@ -50,17 +51,16 @@ public class ProjetoService {
         projetoExistente.setOrcamentoTotal(projetoAtualizado.getOrcamentoTotal());
         projetoExistente.setDescricao(projetoAtualizado.getDescricao());
         projetoExistente.setStatusAtual(projetoAtualizado.getStatusAtual());
-        projetoExistente.setRisco(projetoAtualizado.getRisco());
 
         // Recalcula risco se necessário
         projetoExistente.calcularRisco();
 
         projetoRepository.save(projetoExistente);
 
-        return "Projeto atualizado com sucesso.";
+        return projetoExistente;
     }
 
-    public String cancelarProjeto(Long id){
+    public Projeto cancelarProjeto(Long id){
         Projeto projetoExistente = findById(id);
 
         if(projetoExistente.getStatusAtual() == StatusProjeto.CANCELADO){
@@ -70,6 +70,6 @@ public class ProjetoService {
         projetoExistente.setStatusAtual(StatusProjeto.CANCELADO);
         projetoRepository.save(projetoExistente);
 
-        return "Projeto cancelado com sucesso.";
+        return projetoExistente;
     }
 }

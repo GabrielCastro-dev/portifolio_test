@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
-import portifolioTest.portofolio.dto.ProjetoDTO;
+import portifolioTest.portofolio.dto.CreateProjetoDTO;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -45,7 +45,7 @@ public class Projeto {
 
     public Projeto() {}
 
-    public Projeto(ProjetoDTO dto){
+    public Projeto(CreateProjetoDTO dto){
         BeanUtils.copyProperties(dto, this);
     }
 
