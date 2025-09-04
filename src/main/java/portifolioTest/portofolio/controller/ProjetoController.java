@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import portifolioTest.portofolio.dto.CreateProjetoDTO;
 import portifolioTest.portofolio.dto.ProjetoDTO;
 import portifolioTest.portofolio.entity.Projeto;
+import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.mapper.ProjetoMapper;
 import portifolioTest.portofolio.service.ProjetoService;
 
@@ -94,6 +95,19 @@ public class ProjetoController {
         try {
             Projeto cancelado = projetoService.cancelarProjeto(id);
             ProjetoDTO response = ProjetoMapper.toDTO(cancelado);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/atualizarStatus/{id}")
+    public ResponseEntity<?> atualizarStatusProjeto(@PathVariable Long id, @RequestBody StatusProjeto statusAtualizado){
+        try {
+            Projeto projetoAtualizado = projetoService.atualizarStatusProjeto(id, statusAtualizado);
+            ProjetoDTO response = ProjetoMapper.toDTO(projetoAtualizado);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity

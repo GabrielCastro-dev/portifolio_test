@@ -75,25 +75,47 @@ public class ProjetoService {
         return projetoExistente;
     }
 
-    public Projeto encerrarProjeto(Long id, LocalDate dataTerminoEfetivo){
-        // Para finalizar o projeto é necessária uma data de termino efetivo
-        Projeto projetoExistente = findById(id);
-
+    private void validarTransicao(Projeto projeto, StatusProjeto novoStatus, boolean permitirEncerramentoDireto) {
         // Valida se o projeto já foi encerrado
-        if(projetoExistente.getStatusAtual() == StatusProjeto.ENCERRADO){
+        if (projeto.getStatusAtual() == StatusProjeto.ENCERRADO) {
             throw new RuntimeException("Este projeto já foi encerrado.");
         }
 
-        // Valida se o projeto está em andamento (requirido para encerramento)
-        if (!StatusValidator.podeTransicionar(projetoExistente.getStatusAtual(), StatusProjeto.ENCERRADO)) {
-            throw new RuntimeException("Transição de status inválida: só podem ser encerrados os projetos em andamento.");
+        // Valida se é atualização padrão ou encerramento
+        if (!permitirEncerramentoDireto && novoStatus == StatusProjeto.ENCERRADO) {
+            throw new RuntimeException("Operação inválida. Utilize a rota \"projeto/encerrar/{id}\" para finalizar o projeto.");
         }
+
+        // Valida se a progressão de status se adequa às regras de negócio
+        if (!StatusValidator.podeTransicionar(projeto.getStatusAtual(), novoStatus)) {
+            if (novoStatus == StatusProjeto.ENCERRADO) {
+                throw new RuntimeException("Transição de status inválida: só podem ser encerrados os projetos em andamento.");
+            } else {
+                throw new RuntimeException("Transição de status inválida: " +
+                        projeto.getStatusAtual() + " → " + novoStatus);
+            }
+        }
+    }
+
+    // Atualização apenas para status que não forem "ENCERRADO"
+    public Projeto atualizarStatusProjeto(Long id, StatusProjeto statusAtualizado) {
+        Projeto projetoExistente = findById(id);
+
+        validarTransicao(projetoExistente, statusAtualizado, false);
+
+        projetoExistente.setStatusAtual(statusAtualizado);
+        return projetoRepository.save(projetoExistente);
+    }
+
+    // Atualização de status para encerramento
+    public Projeto encerrarProjeto(Long id, LocalDate dataTerminoEfetivo) {
+        Projeto projetoExistente = findById(id);
+
+        validarTransicao(projetoExistente, StatusProjeto.ENCERRADO, true);
 
         projetoExistente.setDataTerminoEfetivo(dataTerminoEfetivo);
         projetoExistente.setStatusAtual(StatusProjeto.ENCERRADO);
 
-        projetoRepository.save(projetoExistente);
-
-        return projetoExistente;
+        return projetoRepository.save(projetoExistente);
     }
 }
