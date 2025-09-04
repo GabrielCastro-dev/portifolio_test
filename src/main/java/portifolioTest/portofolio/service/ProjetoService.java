@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.repository.ProjetoRepository;
+import portifolioTest.portofolio.utils.StatusValidator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -78,8 +79,14 @@ public class ProjetoService {
         // Para finalizar o projeto é necessária uma data de termino efetivo
         Projeto projetoExistente = findById(id);
 
+        // Valida se o projeto já foi encerrado
         if(projetoExistente.getStatusAtual() == StatusProjeto.ENCERRADO){
             throw new RuntimeException("Este projeto já foi encerrado.");
+        }
+
+        // Valida se o projeto está em andamento (requirido para encerramento)
+        if (!StatusValidator.podeTransicionar(projetoExistente.getStatusAtual(), StatusProjeto.ENCERRADO)) {
+            throw new RuntimeException("Transição de status inválida: só podem ser encerrados os projetos em andamento.");
         }
 
         projetoExistente.setDataTerminoEfetivo(dataTerminoEfetivo);
