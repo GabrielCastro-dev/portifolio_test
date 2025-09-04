@@ -21,4 +21,16 @@ public class StatusValidator {
 
         return indexProximo == indexAtual + 1;
     }
+
+    public static boolean podeExcluir(StatusProjeto atual){
+        if(
+            atual == StatusProjeto.INICIADO ||
+            atual == StatusProjeto.EM_ANDAMENTO ||
+            atual == StatusProjeto.ENCERRADO
+        ){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

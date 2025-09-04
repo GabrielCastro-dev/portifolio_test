@@ -38,6 +38,14 @@ public class ProjetoService {
 
     public String deleteById(Long id){
         Projeto projetoADeletar = findById(id);
+
+        if(!StatusValidator.podeExcluir(projetoADeletar.getStatusAtual())){
+            throw new RuntimeException(
+                "Projetos só podem ser excluido em fase de analise, planejamento ou cancelamento." +
+                "\nStatus atual do projeto: " + projetoADeletar.getStatusAtual()
+            );
+        }
+
         projetoRepository.delete(projetoADeletar);
         return "Projeto deletado com sucesso.";
     }
