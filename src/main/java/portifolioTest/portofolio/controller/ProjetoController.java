@@ -10,6 +10,7 @@ import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.mapper.ProjetoMapper;
 import portifolioTest.portofolio.service.ProjetoService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,11 +89,24 @@ public class ProjetoController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/cancelar/{id}")
     public ResponseEntity<?> cancelarProjeto(@PathVariable Long id){
         try {
             Projeto cancelado = projetoService.cancelarProjeto(id);
             ProjetoDTO response = ProjetoMapper.toDTO(cancelado);
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/finalizar/{id}")
+    public ResponseEntity<?> encerrarProjeto(@PathVariable Long id, @RequestBody LocalDate dataTerminoEfetivo){
+        try {
+            Projeto projetoFinalizado = projetoService.encerrarProjeto(id, dataTerminoEfetivo);
+            ProjetoDTO response = ProjetoMapper.toDTO(projetoFinalizado);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity

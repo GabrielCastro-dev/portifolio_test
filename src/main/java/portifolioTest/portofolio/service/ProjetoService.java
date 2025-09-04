@@ -6,6 +6,7 @@ import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.repository.ProjetoRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,10 +65,26 @@ public class ProjetoService {
         Projeto projetoExistente = findById(id);
 
         if(projetoExistente.getStatusAtual() == StatusProjeto.CANCELADO){
-            throw new RuntimeException("Este projeto já foi cancelado");
+            throw new RuntimeException("Este projeto já foi cancelado.");
         }
 
         projetoExistente.setStatusAtual(StatusProjeto.CANCELADO);
+        projetoRepository.save(projetoExistente);
+
+        return projetoExistente;
+    }
+
+    public Projeto encerrarProjeto(Long id, LocalDate dataTerminoEfetivo){
+        // Para finalizar o projeto é necessária uma data de termino efetivo
+        Projeto projetoExistente = findById(id);
+
+        if(projetoExistente.getStatusAtual() == StatusProjeto.ENCERRADO){
+            throw new RuntimeException("Este projeto já foi encerrado.");
+        }
+
+        projetoExistente.setDataTerminoEfetivo(dataTerminoEfetivo);
+        projetoExistente.setStatusAtual(StatusProjeto.ENCERRADO);
+
         projetoRepository.save(projetoExistente);
 
         return projetoExistente;
