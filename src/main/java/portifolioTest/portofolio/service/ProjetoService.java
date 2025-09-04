@@ -113,6 +113,15 @@ public class ProjetoService {
 
         validarTransicao(projetoExistente, StatusProjeto.ENCERRADO, true);
 
+        // Valida data de termino efetivo
+        if (!dataTerminoEfetivo.isAfter(projetoExistente.getDataInicio())) {
+            throw new RuntimeException(
+                    "Data de término efetivo inválida." +
+                    "\nData de início do projeto: " + projetoExistente.getDataInicio() +
+                    "\nData de término fornecida: " + dataTerminoEfetivo
+            );
+        }
+
         projetoExistente.setDataTerminoEfetivo(dataTerminoEfetivo);
         projetoExistente.setStatusAtual(StatusProjeto.ENCERRADO);
 
