@@ -36,6 +36,16 @@ public class ProjetoService {
         return projetoEncontrado.get();
     }
 
+    public List<Projeto> listByStatus(StatusProjeto statusDesejado){
+        List<Projeto> projetosEncontrados = this.projetoRepository.findByStatusAtual(statusDesejado);
+
+        if(projetosEncontrados.isEmpty()){
+            throw new RuntimeException("Nenhum projeto encontrado nessa categoria");
+        }
+
+        return projetosEncontrados;
+    }
+
     public String deleteById(Long id){
         Projeto projetoADeletar = findById(id);
 

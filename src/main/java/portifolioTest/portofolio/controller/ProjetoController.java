@@ -64,6 +64,22 @@ public class ProjetoController {
         }
     }
 
+    @GetMapping("/by-status")
+    public ResponseEntity<?> getProjetosByStatus(@RequestParam String statusDesejado){
+        try {
+            StatusProjeto statusEnum = StatusProjeto.valueOf(statusDesejado.toUpperCase());
+            List<Projeto> projetos = projetoService.listByStatus(statusEnum);
+            List<ProjetoDTO> response = projetos.stream()
+                    .map(ProjetoMapper::toDTO)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Erro ao buscar projeto!");
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProjetoById(@PathVariable Long id){
         try {
