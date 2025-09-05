@@ -64,7 +64,7 @@ public class ProjetoController {
         }
     }
 
-    @GetMapping("/by-status")
+    @GetMapping("/porStatus")
     public ResponseEntity<?> getProjetosByStatus(@RequestParam String statusDesejado){
         try {
             StatusProjeto statusEnum = StatusProjeto.valueOf(statusDesejado.toUpperCase());
@@ -73,10 +73,10 @@ public class ProjetoController {
                     .map(ProjetoMapper::toDTO)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Erro ao buscar projeto!");
+                    .body(e.getMessage());
         }
     }
 
