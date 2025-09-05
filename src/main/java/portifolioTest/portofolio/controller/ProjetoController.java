@@ -41,9 +41,7 @@ public class ProjetoController {
     public ResponseEntity<?> getProjetos(){
         try {
             List<Projeto> projetos = projetoService.getProjetos();
-            List<ProjetoDTO> response = projetos.stream()
-                    .map(ProjetoMapper::toDTO)
-                    .collect(Collectors.toList());
+            List<ProjetoDTO> response = ProjetoMapper.toDTOList(projetos);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity
@@ -70,9 +68,7 @@ public class ProjetoController {
         try {
             StatusProjeto statusEnum = StatusProjeto.valueOf(statusDesejado.toUpperCase());
             List<Projeto> projetos = projetoService.listByStatus(statusEnum);
-            List<ProjetoDTO> response = projetos.stream()
-                    .map(ProjetoMapper::toDTO)
-                    .collect(Collectors.toList());
+            List<ProjetoDTO> response = ProjetoMapper.toDTOList(projetos);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity
@@ -86,9 +82,7 @@ public class ProjetoController {
         try {
             RiscoProjeto riscoEnum = RiscoProjeto.valueOf(riscoDesejado.toUpperCase());
             List<Projeto> projetos = projetoService.listByRisco(riscoEnum);
-            List<ProjetoDTO> response = projetos.stream()
-                    .map(ProjetoMapper::toDTO)
-                    .collect(Collectors.toList());
+            List<ProjetoDTO> response = ProjetoMapper.toDTOList(projetos);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity
