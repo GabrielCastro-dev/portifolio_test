@@ -3,6 +3,7 @@ package portifolioTest.portofolio.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portifolioTest.portofolio.entity.Projeto;
+import portifolioTest.portofolio.entity.RiscoProjeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.repository.ProjetoRepository;
 import portifolioTest.portofolio.utils.StatusValidator;
@@ -40,7 +41,17 @@ public class ProjetoService {
         List<Projeto> projetosEncontrados = this.projetoRepository.findByStatusAtual(statusDesejado);
 
         if(projetosEncontrados.isEmpty()){
-            throw new RuntimeException("Nenhum projeto encontrado nessa categoria");
+            throw new RuntimeException("Nenhum projeto encontrado nessa categoria.");
+        }
+
+        return projetosEncontrados;
+    }
+
+    public List<Projeto> listByRisco(RiscoProjeto riscoDesejado){
+        List<Projeto> projetosEncontrados = this.projetoRepository.findByRisco(riscoDesejado);
+
+        if(projetosEncontrados.isEmpty()){
+            throw new RuntimeException("Nenhum projeto encontrado em esse nível de risco.");
         }
 
         return projetosEncontrados;

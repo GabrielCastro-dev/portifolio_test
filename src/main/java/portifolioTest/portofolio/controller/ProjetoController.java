@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import portifolioTest.portofolio.dto.CreateProjetoDTO;
 import portifolioTest.portofolio.dto.ProjetoDTO;
 import portifolioTest.portofolio.entity.Projeto;
+import portifolioTest.portofolio.entity.RiscoProjeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.mapper.ProjetoMapper;
 import portifolioTest.portofolio.service.ProjetoService;
@@ -69,6 +70,22 @@ public class ProjetoController {
         try {
             StatusProjeto statusEnum = StatusProjeto.valueOf(statusDesejado.toUpperCase());
             List<Projeto> projetos = projetoService.listByStatus(statusEnum);
+            List<ProjetoDTO> response = projetos.stream()
+                    .map(ProjetoMapper::toDTO)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/porRisco")
+    public ResponseEntity<?> getProjetosByRisco(@RequestParam String riscoDesejado){
+        try {
+            RiscoProjeto riscoEnum = RiscoProjeto.valueOf(riscoDesejado.toUpperCase());
+            List<Projeto> projetos = projetoService.listByRisco(riscoEnum);
             List<ProjetoDTO> response = projetos.stream()
                     .map(ProjetoMapper::toDTO)
                     .collect(Collectors.toList());
