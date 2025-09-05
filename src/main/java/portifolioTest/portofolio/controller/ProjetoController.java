@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.entity.RiscoProjeto;
 import portifolioTest.portofolio.entity.StatusProjeto;
 import portifolioTest.portofolio.mapper.ProjetoMapper;
+import portifolioTest.portofolio.security.SecurityConfig;
 import portifolioTest.portofolio.service.ProjetoService;
 
 import java.time.LocalDate;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/projeto")
 @Tag(name = "Projeto", description = "Controlador para todas operações com entidade Projeto")
+@SecurityRequirement(name = SecurityConfig.SECURITY)
 public class ProjetoController {
 
     @Autowired
