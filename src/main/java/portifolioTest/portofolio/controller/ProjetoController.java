@@ -1,8 +1,18 @@
 package portifolioTest.portofolio.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import portifolioTest.portofolio.dto.CreateProjetoDTO;
 import portifolioTest.portofolio.dto.ProjetoDTO;
@@ -18,12 +28,24 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/projeto")
+@Tag(name = "Projeto", description = "Controlador para todas operações com entidade Projeto")
 public class ProjetoController {
 
     @Autowired
     private ProjetoService projetoService;
 
     @PostMapping
+    @Operation(summary = "Cria projeto", description = "Método para criar projeto")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Projeto criado com sucesso",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = ProjetoDTO.class)
+                )
+        ),
+        @ApiResponse(responseCode = "400", description = "Erro ao criar projeto",
+                content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> postProjeto(@RequestBody CreateProjetoDTO projetoDTO){
         try {
             Projeto novoProjeto = ProjetoMapper.toEntity(projetoDTO);
@@ -38,6 +60,18 @@ public class ProjetoController {
     }
 
     @GetMapping
+    @Operation(summary = "Lista todos projetos do sistema", description = "Método para listar projetos do sitema")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projetos listados com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProjetoDTO.class))
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar projetos",
+                    content = @Content(schema = @Schema())
+            )
+    })
     public ResponseEntity<?> getProjetos(){
         try {
             List<Projeto> projetos = projetoService.getProjetos();
@@ -51,6 +85,17 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Retorna projeto por id", description = "Método para retornar um projeto específico por id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projeto encontrado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao buscar projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> getProjetoById(@PathVariable Long id){
         try {
             Projeto projeto = projetoService.findById(id);
@@ -64,6 +109,18 @@ public class ProjetoController {
     }
 
     @GetMapping("/porStatus")
+    @Operation(summary = "Lista produdos por status", description = "Método para listar projetos por status")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projetos listados com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProjetoDTO.class))
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar projetos",
+                    content = @Content(schema = @Schema())
+            )
+    })
     public ResponseEntity<?> getProjetosByStatus(@RequestParam String statusDesejado){
         try {
             StatusProjeto statusEnum = StatusProjeto.valueOf(statusDesejado.toUpperCase());
@@ -78,6 +135,18 @@ public class ProjetoController {
     }
 
     @GetMapping("/porRisco")
+    @Operation(summary = "Lista produdos por risco", description = "Método para listar projetos por risco")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projetos listados com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProjetoDTO.class))
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar projetos",
+                    content = @Content(schema = @Schema())
+            )
+    })
     public ResponseEntity<?> getProjetosByRisco(@RequestParam String riscoDesejado){
         try {
             RiscoProjeto riscoEnum = RiscoProjeto.valueOf(riscoDesejado.toUpperCase());
@@ -92,6 +161,17 @@ public class ProjetoController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Deleta projeto por id", description = "Método para deletar um projeto específico por id")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projeto deletado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao deletar projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<String> deleteProjetoById(@PathVariable Long id){
         try {
             String response = projetoService.deleteById(id);
@@ -104,6 +184,17 @@ public class ProjetoController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Edita projeto", description = "Método para editar objeto completo do projeto")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projeto editado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao editar projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> editProjetoById(@PathVariable Long id, @RequestBody CreateProjetoDTO projetoDTO){
         try {
             Projeto projetoAtualizado = ProjetoMapper.toEntity(projetoDTO);
@@ -118,6 +209,17 @@ public class ProjetoController {
     }
 
     @PatchMapping("/cancelar/{id}")
+    @Operation(summary = "Cancela projeto", description = "Método para cancelar projeto")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Projeto cancelado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao cancelar projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> cancelarProjeto(@PathVariable Long id){
         try {
             Projeto cancelado = projetoService.cancelarProjeto(id);
@@ -131,6 +233,17 @@ public class ProjetoController {
     }
 
     @PatchMapping("/atualizarStatus/{id}")
+    @Operation(summary = "Edita status projeto", description = "Método para editar projeto com base na regra sequencial")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Status do projeto atualizado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao atualizar status do projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> atualizarStatusProjeto(@PathVariable Long id, @RequestBody StatusProjeto statusAtualizado){
         try {
             Projeto projetoAtualizado = projetoService.atualizarStatusProjeto(id, statusAtualizado);
@@ -144,6 +257,17 @@ public class ProjetoController {
     }
 
     @PatchMapping("/finalizar/{id}")
+    @Operation(summary = "Finaliza projeto", description = "Método para finalizar projeto")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Projeto finalizado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ProjetoDTO.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Erro ao finalizar projeto",
+                    content = @Content(schema = @Schema()))
+    })
     public ResponseEntity<?> encerrarProjeto(@PathVariable Long id, @RequestBody LocalDate dataTerminoEfetivo){
         try {
             Projeto projetoFinalizado = projetoService.encerrarProjeto(id, dataTerminoEfetivo);
