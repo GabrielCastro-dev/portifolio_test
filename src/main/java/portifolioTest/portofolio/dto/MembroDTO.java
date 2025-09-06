@@ -1,15 +1,20 @@
 package portifolioTest.portofolio.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.beans.BeanUtils;
+import portifolioTest.portofolio.entity.Membro;
+import portifolioTest.portofolio.entity.PapelMembro;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class MembroDTO {
     private Long id;
     private String nome;
     private String email;
-    private String papel;
+    private PapelMembro papel;
+
+    public MembroDTO(Membro membro){
+        BeanUtils.copyProperties(membro, this);
+    }
 }

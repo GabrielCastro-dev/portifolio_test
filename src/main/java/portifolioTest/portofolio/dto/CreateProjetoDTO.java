@@ -1,6 +1,7 @@
 package portifolioTest.portofolio.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import portifolioTest.portofolio.entity.StatusProjeto;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CreateProjetoDTO {
     private String nome;
     private LocalDate dataInicio;
@@ -24,9 +26,5 @@ public class CreateProjetoDTO {
 
     public CreateProjetoDTO(Projeto produto){
         BeanUtils.copyProperties(produto, this);
-    }
-
-    public CreateProjetoDTO(){
-
     }
 }
