@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import portifolioTest.portofolio.entity.Projeto;
-import portifolioTest.portofolio.entity.StatusProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 import portifolioTest.portofolio.repository.ProjetoRepository;
 
 import java.math.BigDecimal;

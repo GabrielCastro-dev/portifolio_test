@@ -1,6 +1,6 @@
 package portifolioTest.portofolio.utils;
 
-import portifolioTest.portofolio.entity.StatusProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 
 import java.util.List;
 

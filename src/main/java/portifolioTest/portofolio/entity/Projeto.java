@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import portifolioTest.portofolio.dto.CreateProjetoDTO;
+import portifolioTest.portofolio.enums.RiscoProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

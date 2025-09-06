@@ -2,7 +2,7 @@ package portifolioTest.portofolio.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import portifolioTest.portofolio.entity.PapelMembro;
+import portifolioTest.portofolio.enums.PapelMembro;
 
 @Getter
 @Setter

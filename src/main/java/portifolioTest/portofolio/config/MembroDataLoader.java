@@ -4,7 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import portifolioTest.portofolio.entity.Membro;
-import portifolioTest.portofolio.entity.PapelMembro;
+import portifolioTest.portofolio.enums.PapelMembro;
 import portifolioTest.portofolio.service.MembroService;
 
 @Configuration

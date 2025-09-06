@@ -2,12 +2,9 @@ package portifolioTest.portofolio.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import portifolioTest.portofolio.controller.ProjetoController;
-import portifolioTest.portofolio.dto.MembroDTO;
 import portifolioTest.portofolio.entity.Projeto;
-import portifolioTest.portofolio.entity.ProjetoMembro;
-import portifolioTest.portofolio.entity.RiscoProjeto;
-import portifolioTest.portofolio.entity.StatusProjeto;
+import portifolioTest.portofolio.enums.RiscoProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 import portifolioTest.portofolio.repository.ProjetoMembroRepository;
 import portifolioTest.portofolio.repository.ProjetoRepository;
 import portifolioTest.portofolio.utils.StatusValidator;

@@ -3,7 +3,7 @@ package portifolioTest.portofolio.dto;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
 import portifolioTest.portofolio.entity.Membro;
-import portifolioTest.portofolio.entity.PapelMembro;
+import portifolioTest.portofolio.enums.PapelMembro;
 
 @Getter
 @Setter

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
-import portifolioTest.portofolio.entity.StatusProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 import portifolioTest.portofolio.entity.Projeto;
 
 import java.math.BigDecimal;

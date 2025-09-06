@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import portifolioTest.portofolio.dto.CreateMembroDTO;
-import portifolioTest.portofolio.dto.CreateProjetoDTO;
+import portifolioTest.portofolio.enums.PapelMembro;
 
 @Getter
 @Setter

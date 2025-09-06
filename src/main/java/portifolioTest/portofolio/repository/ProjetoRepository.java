@@ -1,10 +1,9 @@
 package portifolioTest.portofolio.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import portifolioTest.portofolio.entity.Projeto;
-import portifolioTest.portofolio.entity.RiscoProjeto;
-import portifolioTest.portofolio.entity.StatusProjeto;
+import portifolioTest.portofolio.enums.RiscoProjeto;
+import portifolioTest.portofolio.enums.StatusProjeto;
 
 import java.util.List;
 

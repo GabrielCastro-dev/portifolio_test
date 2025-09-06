@@ -1,4 +1,4 @@
-package portifolioTest.portofolio.entity;
+package portifolioTest.portofolio.enums;
 
 public enum PapelMembro {
     GERENTE,
