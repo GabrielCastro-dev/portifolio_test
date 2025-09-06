@@ -1,8 +1,6 @@
 package portifolioTest.portofolio.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,9 +11,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import portifolioTest.portofolio.dto.CreateProjetoDTO;
+import portifolioTest.portofolio.dto.MembroDTO;
 import portifolioTest.portofolio.dto.ProjetoDTO;
 import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.entity.RiscoProjeto;
@@ -25,8 +23,8 @@ import portifolioTest.portofolio.security.SecurityConfig;
 import portifolioTest.portofolio.service.ProjetoService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/projeto")

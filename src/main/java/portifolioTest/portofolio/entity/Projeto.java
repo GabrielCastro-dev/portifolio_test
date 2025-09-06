@@ -43,6 +43,9 @@ public class Projeto {
     @Enumerated(EnumType.STRING)
     private RiscoProjeto risco;
 
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.Set<ProjetoMembro> membros = new java.util.HashSet<>();
+
     public Projeto() {}
 
     public Projeto(CreateProjetoDTO dto){
