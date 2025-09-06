@@ -39,7 +39,6 @@ public class SecurityConfig {
                         // Qualquer outra rota precisa de token
                         .anyRequest().authenticated()
                 )
-                // Adiciona filtro JWT
                 .addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

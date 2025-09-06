@@ -17,10 +17,6 @@ public class MembroController {
     @Autowired
     private  MembroService membroService;
 
-    public MembroController(MembroService membroService) {
-        this.membroService = membroService;
-    }
-
     @GetMapping("/{id}")
     public MembroDTO getMembroById(@PathVariable Long id) {
         return membroService.getMembroById(id);
