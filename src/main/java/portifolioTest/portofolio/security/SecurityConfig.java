@@ -38,6 +38,8 @@ public class SecurityConfig {
                         .requestMatchers("/membro/**").authenticated()
                         // /projeto-membro precisa de token
                         .requestMatchers("/projeto-membro/**").authenticated()
+                        // /resumo precisa de token
+                        .requestMatchers("/resumo/**").authenticated()
                         // Qualquer outra rota precisa de token
                         .anyRequest().authenticated()
                 )

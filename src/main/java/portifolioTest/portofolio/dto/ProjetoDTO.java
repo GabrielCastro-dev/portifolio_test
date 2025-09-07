@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class ProjetoDTO {
-    private Integer id;
+    private Long id;
     private String nome;
     private LocalDate dataInicio;
     private LocalDate dataTerminoPrevisto;

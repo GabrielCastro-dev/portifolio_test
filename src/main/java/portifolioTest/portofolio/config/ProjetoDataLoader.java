@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import portifolioTest.portofolio.entity.Projeto;
 import portifolioTest.portofolio.enums.StatusProjeto;
-import portifolioTest.portofolio.repository.ProjetoRepository;
+import portifolioTest.portofolio.service.ProjetoService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class ProjetoDataLoader {
 
     @Bean
-    CommandLineRunner initDatabase(ProjetoRepository projetoRepository) {
+    CommandLineRunner initDatabase(ProjetoService projetoService) {
         return args -> {
 
             Projeto p1 = new Projeto();
@@ -24,7 +24,7 @@ public class ProjetoDataLoader {
             p1.setOrcamentoTotal(new BigDecimal("200000"));
             p1.setDescricao("Sistema para controle interno");
             p1.setStatusAtual(StatusProjeto.EM_ANDAMENTO);
-            p1.calcularRisco();
+            projetoService.postProjeto(p1);
 
             Projeto p2 = new Projeto();
             p2.setNome("Aplicativo Mobile");
@@ -33,7 +33,7 @@ public class ProjetoDataLoader {
             p2.setOrcamentoTotal(new BigDecimal("80000"));
             p2.setDescricao("Aplicativo para interação com clientes");
             p2.setStatusAtual(StatusProjeto.EM_ANALISE);
-            p2.calcularRisco();
+            projetoService.postProjeto(p2);
 
             Projeto p3 = new Projeto();
             p3.setNome("Plataforma E-commerce");
@@ -42,7 +42,7 @@ public class ProjetoDataLoader {
             p3.setOrcamentoTotal(new BigDecimal("300000"));
             p3.setDescricao("Loja virtual completa com integração a pagamentos");
             p3.setStatusAtual(StatusProjeto.EM_ANDAMENTO);
-            p3.calcularRisco();
+            projetoService.postProjeto(p3);
 
             Projeto p4 = new Projeto();
             p4.setNome("Dashboard de BI");
@@ -51,7 +51,7 @@ public class ProjetoDataLoader {
             p4.setOrcamentoTotal(new BigDecimal("600000"));
             p4.setDescricao("Painel de Business Intelligence para diretoria");
             p4.setStatusAtual(StatusProjeto.PLANEJADO);
-            p4.calcularRisco();
+            projetoService.postProjeto(p4);
 
             Projeto p5 = new Projeto();
             p5.setNome("Site Institucional");
@@ -60,25 +60,27 @@ public class ProjetoDataLoader {
             p5.setOrcamentoTotal(new BigDecimal("40000"));
             p5.setDescricao("Novo site institucional responsivo");
             p5.setStatusAtual(StatusProjeto.EM_ANALISE);
-            p5.calcularRisco();
+            projetoService.postProjeto(p5);
 
             Projeto p6 = new Projeto();
             p6.setNome("Sistema de RH");
             p6.setDataInicio(LocalDate.of(2024, 5, 1));
             p6.setDataTerminoPrevisto(LocalDate.of(2024, 10, 1));
+            p6.setDataTerminoEfetivo(LocalDate.of(2024, 10, 1)); // encerrado
             p6.setDescricao("Ferramenta de gestão de recursos humanos");
             p6.setOrcamentoTotal(new BigDecimal("120000"));
             p6.setStatusAtual(StatusProjeto.ENCERRADO);
-            p6.calcularRisco();
+            projetoService.postProjeto(p6);
 
             Projeto p7 = new Projeto();
             p7.setNome("Integração ERP");
             p7.setDataInicio(LocalDate.of(2023, 7, 15));
             p7.setDataTerminoPrevisto(LocalDate.of(2023, 12, 20));
+            p7.setDataTerminoEfetivo(LocalDate.of(2023, 12, 18)); // encerrado
             p7.setDescricao("Integração entre sistemas legados e novo ERP");
             p7.setOrcamentoTotal(new BigDecimal("500000"));
             p7.setStatusAtual(StatusProjeto.ENCERRADO);
-            p7.calcularRisco();
+            projetoService.postProjeto(p7);
 
             Projeto p8 = new Projeto();
             p8.setNome("Chatbot de Suporte");
@@ -87,16 +89,17 @@ public class ProjetoDataLoader {
             p8.setDescricao("Chatbot para atendimento ao cliente 24/7");
             p8.setOrcamentoTotal(new BigDecimal("90000"));
             p8.setStatusAtual(StatusProjeto.INICIADO);
-            p8.calcularRisco();
+            projetoService.postProjeto(p8);
 
             Projeto p9 = new Projeto();
             p9.setNome("Sistema de Logística");
             p9.setDataInicio(LocalDate.of(2024, 1, 15));
             p9.setDataTerminoPrevisto(LocalDate.of(2024, 11, 30));
+            p9.setDataTerminoEfetivo(LocalDate.of(2024, 11, 28)); // encerrado
             p9.setDescricao("Otimização de rotas de entrega");
             p9.setOrcamentoTotal(new BigDecimal("250000"));
             p9.setStatusAtual(StatusProjeto.ENCERRADO);
-            p9.calcularRisco();
+            projetoService.postProjeto(p9);
 
             Projeto p10 = new Projeto();
             p10.setNome("Portal do Fornecedor");
@@ -105,34 +108,36 @@ public class ProjetoDataLoader {
             p10.setDescricao("Portal online para fornecedores acompanharem pedidos");
             p10.setOrcamentoTotal(new BigDecimal("150000"));
             p10.setStatusAtual(StatusProjeto.EM_ANDAMENTO);
-            p10.calcularRisco();
+            projetoService.postProjeto(p10);
 
             Projeto p11 = new Projeto();
             p11.setNome("Sistema de Segurança IoT");
             p11.setDataInicio(LocalDate.of(2024, 3, 10));
             p11.setDataTerminoPrevisto(LocalDate.of(2024, 9, 10));
+            p11.setDataTerminoEfetivo(LocalDate.of(2024, 9, 12)); // encerrado
             p11.setDescricao("Monitoramento de dispositivos conectados");
             p11.setOrcamentoTotal(new BigDecimal("350000"));
             p11.setStatusAtual(StatusProjeto.ENCERRADO);
-            p11.calcularRisco();
+            projetoService.postProjeto(p11);
 
             Projeto p12 = new Projeto();
             p12.setNome("Campanha Marketing Digital");
             p12.setDataInicio(LocalDate.of(2025, 5, 5));
             p12.setDataTerminoPrevisto(LocalDate.of(2025, 7, 30));
-            p12.setDescricao("Campanha de mídia paga e inbound marketing");
             p12.setOrcamentoTotal(new BigDecimal("60000"));
+            p12.setDescricao("Campanha de mídia paga e inbound marketing");
             p12.setStatusAtual(StatusProjeto.PLANEJADO);
-            p12.calcularRisco();
+            projetoService.postProjeto(p12);
 
             Projeto p13 = new Projeto();
             p13.setNome("Reestruturação de Rede");
             p13.setDataInicio(LocalDate.of(2023, 6, 1));
             p13.setDataTerminoPrevisto(LocalDate.of(2023, 9, 1));
+            p13.setDataTerminoEfetivo(LocalDate.of(2023, 8, 30)); // encerrado
             p13.setDescricao("Atualização de infraestrutura de rede corporativa");
             p13.setOrcamentoTotal(new BigDecimal("200000"));
             p13.setStatusAtual(StatusProjeto.ENCERRADO);
-            p13.calcularRisco();
+            projetoService.postProjeto(p13);
 
             Projeto p14 = new Projeto();
             p14.setNome("Ferramenta de Analytics");
@@ -141,7 +146,7 @@ public class ProjetoDataLoader {
             p14.setDescricao("Plataforma de análise preditiva de dados");
             p14.setOrcamentoTotal(new BigDecimal("750000"));
             p14.setStatusAtual(StatusProjeto.EM_ANALISE);
-            p14.calcularRisco();
+            projetoService.postProjeto(p14);
 
             Projeto p15 = new Projeto();
             p15.setNome("Sistema de Pagamentos");
@@ -150,24 +155,7 @@ public class ProjetoDataLoader {
             p15.setDescricao("Solução integrada para processamento de pagamentos");
             p15.setOrcamentoTotal(new BigDecimal("450000"));
             p15.setStatusAtual(StatusProjeto.CANCELADO);
-            p15.calcularRisco();
-
-            // Salvar todos
-            projetoRepository.save(p1);
-            projetoRepository.save(p2);
-            projetoRepository.save(p3);
-            projetoRepository.save(p4);
-            projetoRepository.save(p5);
-            projetoRepository.save(p6);
-            projetoRepository.save(p7);
-            projetoRepository.save(p8);
-            projetoRepository.save(p9);
-            projetoRepository.save(p10);
-            projetoRepository.save(p11);
-            projetoRepository.save(p12);
-            projetoRepository.save(p13);
-            projetoRepository.save(p14);
-            projetoRepository.save(p15);
+            projetoService.postProjeto(p15);
         };
     }
 }
