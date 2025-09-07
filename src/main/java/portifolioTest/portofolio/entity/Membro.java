@@ -36,6 +36,10 @@ public class Membro {
     @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProjetoMembro> projetos = new HashSet<>();
 
+    public Membro(Long id){
+        this.id = id;
+    }
+
     public Membro(CreateMembroDTO dto){
         BeanUtils.copyProperties(dto, this);
     }

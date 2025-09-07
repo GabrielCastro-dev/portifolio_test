@@ -50,6 +50,10 @@ public class Projeto {
 
     public Projeto() {}
 
+    public Projeto(Long id){
+        this.id = id;
+    }
+
     public Projeto(CreateProjetoDTO dto){
         BeanUtils.copyProperties(dto, this);
     }
