@@ -1,7 +1,9 @@
 package portifolioTest.portofolio.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import portifolioTest.portofolio.dto.CreateMembroDTO;
 import portifolioTest.portofolio.enums.PapelMembro;
@@ -12,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "membros")
 public class Membro {
@@ -37,5 +38,12 @@ public class Membro {
 
     public Membro(CreateMembroDTO dto){
         BeanUtils.copyProperties(dto, this);
+    }
+
+    public Membro(Long id, String nome, String email, PapelMembro papel){
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.papel = papel;
     }
 }

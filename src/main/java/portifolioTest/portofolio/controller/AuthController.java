@@ -3,6 +3,7 @@ package portifolioTest.portofolio.controller;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Rota para login")
 public class AuthController {
 
     @Value("${jwt.secret}")
@@ -30,7 +32,7 @@ public class AuthController {
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody AuthRequest request) {
         try {
-            // Autentica o usuário em memória
+            // Autentica o usuário em memória\
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.username(), request.password())
             );

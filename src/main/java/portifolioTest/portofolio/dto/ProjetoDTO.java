@@ -25,7 +25,7 @@ public class ProjetoDTO {
     private StatusProjeto statusAtual;
     private RiscoProjeto risco;
 
-    public ProjetoDTO(Projeto produto){
-        BeanUtils.copyProperties(produto, this);
+    public ProjetoDTO(Projeto projeto){
+        BeanUtils.copyProperties(projeto, this);
     }
 }
